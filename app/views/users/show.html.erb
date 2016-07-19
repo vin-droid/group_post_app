@@ -1,0 +1,21 @@
+ Logged as : <i><%=current_user.f_name + current_user.l_name%> </i ><br>
+
+ <br> 
+
+ Profile : <%=@user.f_name + @user.l_name%>
+    <%if @user.id == current_user.id%>
+        <%= link_to 'Edit' , edit_user_path(@user) %> | 
+        <%= link_to 'Delete Your Account' , user_path(@user) ,method: :delete %>
+    <%end%>
+  <pre>
+  Image: <%= image_tag @user.image.url  if @user.image?%>
+  First Name: <%= @user.f_name %>
+  Last Name: <%= @user.l_name %>
+  Email: <%= @user.email_id %>
+  Age: <%= @user.age %>
+  Date of Birth: <%= @user.dob %>
+  Sex: <%= @user.sex %>
+  </pre>
+
+  <%= render 'users/friends'%>
+  <%= link_to 'Back' , root_path %> | 

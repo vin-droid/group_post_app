@@ -1,0 +1,27 @@
+defaults: &defaults
+  adapter: postgresql
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+  pool: 10
+  timeout: 5000
+
+development:
+  database: group_post_development
+  <<: *defaults
+
+test:
+  database: group_post_test
+  <<: *defaults
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: group_post_production
+  username: postgres
+  password: postgres
+  host: 127.0.0.1
+  port: 5432
+  pool: 10
+  timeout: 5000

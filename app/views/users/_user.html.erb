@@ -1,0 +1,31 @@
+
+<%= form_for @user ,:html => {:multipart => true} do |f| %>
+<!-- all errors any occurs  -->
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this user from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!-- user form -->
+<pre>
+  First Name: <%= f.text_field :f_name ,autofocus: true,:required => true  ,title: 'only letter are allowed ,no white space', rel: 'tooltip' ,value: "vineet"%><br>
+  Last Name: <%= f.text_field :l_name ,autofocus: true,:required => true  ,title: 'only letter are allowed ,no white space', rel: 'tooltip' ,value: "sahu"%><br>
+  Email: <%= f.email_field :email_id ,autofocus: true ,required: true%><br>
+  Profile: <%=f.file_field :image %><br>
+  Age: <%= f.number_field :age ,autofocus: true , value: 23 %><br>
+  Date of Birth: <%= f.date_field :dob ,required:true  , value: Date.today%><br>
+  Sex: <%= f.select :sex ,["male" ,"female"] ,:selected => "male"%><br>
+  Password: <%= f.password_field :password ,required:true %><br>
+  Password Confirmation: <%= f.password_field :password_confirmation ,required:true%><br>
+  <%= f.submit  %>
+<% end %>
+</pre>

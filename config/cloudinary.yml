@@ -1,0 +1,19 @@
+development:
+  cloud_name: vinspro
+  api_key: '964816527248196'
+  api_secret: 8Hm3Fffsr5M26zEF-0HnTQBp9MU
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: vinspro
+  api_key: '964816527248196'
+  api_secret: 8Hm3Fffsr5M26zEF-0HnTQBp9MU
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: vinspro
+  api_key: '964816527248196'
+  api_secret: 8Hm3Fffsr5M26zEF-0HnTQBp9MU
+  enhance_image_tag: true
+  static_image_support: false
+#CLOUDINARY_URL=cloudinary://964816527248196:8Hm3Fffsr5M26zEF-0HnTQBp9MU@vinspro
