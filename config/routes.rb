@@ -15,6 +15,12 @@ Rails.application.routes.draw do
 			resources :group  do 
 				member do 
 				end
+				resources :users_group ,exept:[:create ,:show,:destroy,:update,:new,:edit] do
+					collection do
+						get 'accept_invitation' , as: :accept_invitation
+						get 'reject_invitation'
+					end
+				end
 			end
 		end
 		collection do
