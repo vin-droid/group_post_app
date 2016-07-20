@@ -1,43 +1,46 @@
 class GroupsController < ApplicationController
 
-before_action :find_group , only:[:destroy,:show]
-before_acrion :find_params, only:[:create,:show]
-before_acrion :authorize
+	before_action :find_group , only:[:destroy,:show]
+	before_action :find_params, only:[:create,:show]
+	before_action :authorize
 
-
-def create
-	@group = current_user.groups.create(find_params)
-		if @group.save 
+	def create
+		@group = current_user.groups.create(find_params)
+		if @group.save!
+			users_ids.each do |user_id|
+				UsersGroup.create! user_id: user_id, group_id: self.id 
+			end 
+			UsersGroup.create! user_id: params[:group][:group_creator], group_id:  @group.id
 			redirect_to root_path
 		else
 			render 'new'
 		end
-	
-end
+	end
 
-def new
-	@group = current_user.groups.new
-end
+	def new
+		@group = current_user.groups.new
+	end
 
-def destroy
-	@group.destroy
-	redirect_to root_path
-end
+	def destroy
+		@group.destroy
+		redirect_to root_path
+	end
 
-def show	
-end
+	def show	
+	end
 
-def index
-	@groups = Group.all.includes(:users,:posts)
-end
+	def index
+		@groups = Group.all.includes(:users,:posts)
+	end
 
-def update
-	@group.update(find_params)
-     redirect_to root_path
-end
+	def update
+		@group.update(find_params)
+		redirect_to root_path
+	end
 
-private
-      def find_params
-         params.require(:group).permit(:title ,:body)
-      end
+	private
+	def find_params
+		params[:group][:group_creator] = current_user.id
+		params.require(:group).permit(:title ,:body,:users_ids,:group_creator)
+	end
 end
