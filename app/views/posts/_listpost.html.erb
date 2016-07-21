@@ -6,9 +6,9 @@
     <h3 class="panel-title">
      <span class="badge" style="margin-left:40%;">
 
-<h4>  <%= Group.find(session[:group_id]).title%> </h4>
+<h4>  <%= @posts.first.group.name%> </h4>
 
-     <h5>Posts --<%=link_to"Create New Post", new_post_path%></h5></span>
+     <h5>Posts --<%=link_to"Create New Post",  new_group_post_path%></h5></span>
   </div>
 
 <div class="panel-body">
@@ -19,11 +19,13 @@
 <% @posts.each do |post|%>
 
 <h4  class="btn btn-default btn-lg btn-block"><span class="badge">
-	TITLE </span>:<%=link_to post.title , "",style:"color:white;"%></h4>
+	TITLE </span>:<%= post.title %></h4>
+  <%= post.content%>
 	<br><%=image_tag(post.image.url, height:"15%;", width:"15%;")%>
+  <br>created by: <%= post.user.username%>
+
   <ul class="list-group">
 	<% if post.comments.present?%>
-
      <% post.comments.each do |coment|%><li class="list-group-item">
 	<div style="word-break:break-all;"> <%= coment.content%>
    <br>
@@ -34,19 +36,6 @@
 
 </ul>
 
-<%= form_for :comment,url:create_comment_path(post) do |f| %>
- 
-<div class="form-group">
-  <div class="field">
-    <%= f.label "Your comments:" %><br>
-    <%= f.text_area :content ,class:"form-control",style:"width:40%;" , maxlength:100%>
-  </div>
-  </div>
-  
-  <div class="actions">
-    <%=f.submit "comment",class:"btn btn-primary btn-xs "%>
-  </div>
-<% end %>
 
 
 <% end%>

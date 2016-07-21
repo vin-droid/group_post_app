@@ -7,15 +7,14 @@ class PostsController < ApplicationController
 		@post = current_user.posts.new
 	end
 	def index
-		@group = Group.find(params[:group_id])
 		@posts = @group.posts.includes(:comments)
 	end
 	def show
 	end
 	def create
-		@post = current_user.posts.create(find_params)
-		if @post.save 
-			redirect_to post_path(@post)
+		@post = @group.posts.create!(find_params)
+		if @post.save! 
+			redirect_to group_posts_path
 		else
 			render 'new'
 		end
@@ -36,7 +35,8 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 	end
 	def find_params
-		params.require(:post).permit(:title ,:content,:image,:group_id)
+		params[:post][:user_id] = current_user.id
+		params.require(:post).permit(:title ,:content,:image,:group_id,:user_id)
 	end
 	def find_group
 		@group = Group.find(params[:group_id])

@@ -21,12 +21,11 @@
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<% if current_user %>
+					<% if @current_user %>
 					<li>
 						<div class="navbar-brand">
-							Signed In As : <i><%= link_to "#{current_user.email}",user_path(current_user)%></i>
+							Signed In As : <i><%= link_to "#{@current_user.email}",user_path(@current_user)%></i>
 						</div>
-						
 					</li>
 					<li>
 						<%= link_to "Group Post",root_path%>
@@ -35,33 +34,43 @@
 					<% end %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<% if current_user %>
+					<% if @current_user %>
 					<li>
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 								<span class="badge">
+									(
+									<%a=0%>
+									<%group_invitations = @current_user.group_invitations%>
+									<% a = group_invitations.count%>
+									<%=a%> )</span>: New Group Request
+									<span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										<% group_invitations.each do |resqt|%>
+										<li> <%=link_to"#{resqt.group.name}: BY: #{resqt.user.username} "%>
+											<%=link_to"Accept",accept_invitation_path(resqt)%>
+											(<%=l resqt.created_at%>)
+										</li>
+										<%end%>
+									</ul>
 								</div>
-							</li>
-							<li>
-								<%= link_to "Log Out", logout_path, method: :delete %>
-							</li>
-							<% else %>
-							  <%if params[:action] == 'new' && params[:controller] == 'users'%>
-							  <li><%= link_to "Log In" , login_path%></li>
-							  <%else%>
-							  <li><%= link_to "Sign Up" ,new_user_path%></li>
-							  <%end%>
-
-							
-							<% end %>
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
-			</nav>
-			<div class="container">
-				<div class="error-flash"><%= notice%></div>
-				<%= yield %>
-
-			</div>
-		</body>
-		</html>
+								<li>
+									<%= link_to "Log Out", logout_path, method: :delete %>
+								</li>
+					<% else %>
+						 <%if params[:action] == 'new' && params[:controller] == 'users'%>
+								<li><%= link_to "Log In" , login_path%></li>
+						 <%else%>
+								<li><%= link_to "Sign Up" ,new_user_path%></li>
+						 <%end%>
+					<% end %>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div><!-- /.container-fluid -->
+				</nav>
+				<div class="container">
+					<div class="error-flash"><%= notice%></div>
+					<%= yield %>
+				</div>
+			</body>
+			</html>

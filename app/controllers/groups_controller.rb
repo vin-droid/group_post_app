@@ -1,16 +1,18 @@
 class GroupsController < ApplicationController
-
+    # protect_from_forgery except: :index
 	before_action :find_group , only:[:destroy,:show]
 	before_action :find_params, only:[:create]
 	before_action :authorize
+	
 
 	def create
-		@group = current_user.groups.create(find_params)
+		@group = @current_user.groups.create(find_params)
+		users_ids = params[:user_ids]
 		if @group.save!
 			users_ids.each do |user_id|
-				UsersGroup.create! user_id: user_id, group_id: self.id 
+				UsersGroup.create! user_id: user_id, group_id: @group.id 
 			end 
-			UsersGroup.create! user_id: params[:group][:group_creator], group_id:  @group.id
+			UsersGroup.create! user_id: @current_user.id, group_id:  @group.id, status: "accepted"
 			redirect_to root_path
 		else
 			render :new
@@ -18,7 +20,7 @@ class GroupsController < ApplicationController
 	end
 
 	def new
-		@group = current_user.groups.new
+		@group = @current_user.groups.new
 	end
 
 	def destroy
@@ -31,7 +33,8 @@ class GroupsController < ApplicationController
 	end
 
 	def index
-		@groups = Group.all.includes(:users,:posts)
+		group_ids =  UsersGroup.where(user_id: @current_user.id,status: "accepted").pluck(:group_id)
+		@groups = Group.where(id: group_ids)
 	end
 
 	def update
@@ -41,7 +44,7 @@ class GroupsController < ApplicationController
 
 	private
 	def find_params
-		params[:group][:group_creator] = current_user.id
-		params.require(:group).permit(:title ,:body,:users_ids,:group_creator)
+		params[:group][:group_creator] = @current_user.username
+		params.require(:group).permit(:name ,:body,:users_ids,:group_creator)
 	end
 end

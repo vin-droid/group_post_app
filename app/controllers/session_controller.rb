@@ -1,7 +1,6 @@
 class SessionController < ApplicationController
 
   def create
-    p "====================#{params[:session].inspect}"
     user = User.find_by_email(params[:session][:email])
     if user &&  user.authenticate(params[:session][:password])
       user.update_attribute(:authentication_token , Time.now.to_i.to_s+SecureRandom.hex)

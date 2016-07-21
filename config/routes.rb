@@ -7,13 +7,12 @@ Rails.application.routes.draw do
 	resources :groups  do 
 		member do 
 		end
-		get 'accept_invitation' => 'users_groups#accept_invitation', as: 'accept_invitation' 
-		get 'reject_invitation' => 'users_groups#accept_invitation', as: 'reject_invitation'
 		resources :posts do 
 			resources :comments do 
 			end 
 		end
 	end
-
+		get 'accept_invitation/:users_group_id' => 'users_groups#accept_invitation', as: 'accept_invitation' 
+		get 'reject_invitation/:users_group_id' => 'users_groups#accept_invitation', as: 'reject_invitation'
 end
 

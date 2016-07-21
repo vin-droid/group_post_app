@@ -1,18 +1,24 @@
-<%= form_for @post , :url => 'group_posts' do |f| %>
- 
+<%= form_for @post , :url =>group_posts_path do |f| %>
+
 <div class="form-group">
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title ,class:"form-control"%>
+    <%= f.text_field :title ,class:"form-control",required: true%>
   </div>
+</div>
+<div class="form-group">
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content ,class:"form-control",required: true%>
   </div>
-  <div class="form-group">
+</div>
+<div class="form-group">
   <div class="field">
     <%= f.label :image %><br>
     <%= f.file_field :image  ,class:"form-control"%>
   </div>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
 <% end %>

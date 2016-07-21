@@ -10,15 +10,54 @@
 <%= form_for @group , method: :post do |f|%>
 <div class="form-group">
  <div class="field">
- <%= f.text_field :title,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;"%><br>
+ <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;"%><br>
   </div>
   </div>
-  
+  <%= %>
    <div class="field">
+
   <%= f.submit "Submit" ,class:"btn btn-primary", style:"margin-left:43%;"%>
   </div>
 
+  You can add these users to your group 
+  <div class="user_list">
+  	<%@users= User.where.not(id: current_user.id)%>
+	<%@users.each do |user|%>
+		<%= user.username%>
+		<%= check_box_tag  "user_ids[]", user.id.to_s, false %>
+	<% end %>
+</div>
 <% end %>
 
 </div>
 </div>
+
+<!-- <div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // '_button' is the Id of your submit button
+    $("#_add_users").click(function() {            
+      // $(this).closest("form").submit();
+      // $("#dialog").dialog("close");
+      alert("i m working!")
+    });
+});
+</script>
+ -->
