@@ -7,6 +7,7 @@ class PostsController < ApplicationController
 		@post = current_user.posts.new
 	end
 	def index
+		@group = Group.find(params[:group_id])
 		@posts = @group.posts.includes(:comments)
 	end
 	def show

@@ -1,2 +1,30 @@
-<p> group index page</p>
-<p><%= params.inspect %></p>
+
+
+<% if @groups.present?%>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Your Groups</h3>
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<% @groups.each do |group|%>
+			<li class="list-group-item">
+			<h3>
+				<%=link_to "#{group.name}", group_path(group) %>
+			</h3>
+			<span>
+				<%=link_to "Created By :#{group.group_creator}", group_path(group)%>
+			</span>
+		   </li>
+		  <% end%>
+	   </ul>
+</div>
+
+<%else%>
+<h2>There are no Group Yet! create one!..</h2>
+
+<%end%>
+
+
+
+

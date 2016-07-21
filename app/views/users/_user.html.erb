@@ -1,41 +1,69 @@
-
-<%= form_for @user ,:html => {:multipart => true}, :url =>users_users_path do |f| %>
-<!-- all errors any occurs  -->
-<% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@user.errors.count, "error") %> prohibited
-        this user from being saved:
-      </h2>
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+<div class="panel panel-primary col-lg-7" style="margin-left:200px;width:700px">
+  <div class="panel-heading">
+  
+  </div>
+  <div class="panel-body">
+    <div class="form-horizontal col-lg-8">
+      <fieldset>
+        <%= form_for @user ,:html => {:multipart => true} do |f| %>
+        <% if @user.errors.any? %>
+        <div class="alert alert-danger fade in">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Warning!</strong> 
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :username %><br>
+            <%= f.text_field :username ,class:"form-control"%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :full_name %><br>
+            <%= f.text_field :full_name ,class:"form-control"%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :email %><br>
+            <%= f.text_field :email ,class:"form-control"%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :password %><br>
+            <%= f.password_field :password ,class:"form-control"%>
+          </div>
+          <div class="field">
+            <%= f.label :password_confirmation %><br>
+            <%= f.password_field :password_confirmation ,class:"form-control"%>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :age %>:
+          <%= f.select :age,options_for_select(18..50)%>
+        </div>
+        <div>
+         <div>
+          <%= f.submit class:"btn btn-primary", style:"float:left;"%>
+        </div> 
+         <div>
+              <%= link_to 'Cancel' ,login_path ,class:"btn btn-primary", style:"float:right;"%>
+            </div>
+        </div>
 
-<!-- user form -->
-<pre>
-  First Name: <%= f.text_field :full_name, 
-                                autofocus: true, 
-                                :required => true, 
-                                title: 'only letter are allowed ,no white space', 
-                                rel: 'tooltip' ,value: "vineet sahu"
-                                %><br>
-  Last Name: <%= f.text_field :username, 
-                               autofocus: true, 
-                               :required => true, 
-                               title: 'only letter are allowed ,no white space', 
-                               rel: 'tooltip', 
-                               value: "sahu"
-                               %><br>
-  Email: <%= f.email_field :email ,autofocus: true ,required: true%><br>
-  Profile: <%=f.file_field :image %><br>
-  Age: <%= f.number_field :age ,autofocus: true , value: 23 %><br>
-  Sex: <%= f.select :sex ,["male" ,"female"] ,:selected => "male"%><br>
-  Password: <%= f.password_field :password ,required:true %><br>
-  Password Confirmation: <%= f.password_field :password_confirmation ,required:true%><br>
-  <%= f.submit  %>
-<% end %>
-</pre>
+      </div>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
+</div>

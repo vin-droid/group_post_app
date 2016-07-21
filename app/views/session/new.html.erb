@@ -1,11 +1,34 @@
-<h1>Login</h1>
 
-<%= form_for :session, :url =>login_path do |f|%>
-<pre>
-  Email:    <%= f.email_field :email %><br>
-  Password: <%= f.password_field :password %><br>
-  <%= f.submit "Submit" %> 
-  <%= link_to 'Sign up' ,  signup_users_path%> 
-  </pre>
-  <%= link_to 'Home' , root_path%> 
-<% end %>
+
+<div class="panel panel-primary col-lg-7" style="margin-left:35%;width:350px;margin-top:60px;">
+	<div class="panel-heading">
+		<h3 class="panel-title">User Login</h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal col-lg-8">
+			<fieldset>
+				<%= form_for :session, :url =>login_path do |f| %>
+				<div class="form-group" style="width:285px;">
+					<div class="field">
+						Email: <%= f.email_field :email, class:"form-control", required:true%><br>
+					</div>
+					<div class="field">
+						Password: <%= f.password_field :password, class:"form-control", required:true %><br>
+					</div>
+					<div class="field" >
+						<%= f.submit "Login", class:"btn btn-primary", style:"width:auto;"%>
+					</div>
+				</div>
+				<% end %><br>
+			</fieldset>
+		</div>
+	</div>
+</div>
+<div class="panel panel-primary col-lg-7" style="margin-left:35%;width:350px;margin-top:-5px;">
+				<h5> New to GoupPostApp?<span><%=link_to "Create an account" , new_user_path %></span>
+				</h5>
+			</div>
+
+
+
+

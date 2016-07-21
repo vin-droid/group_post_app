@@ -1,0 +1,24 @@
+
+<div class="panel panel-primary">
+ <div class="panel-heading">
+    <h3 class="panel-title">Create New Group</h3>
+  </div>
+
+<div class="panel-body">
+
+
+<%= form_for @group , method: :post do |f|%>
+<div class="form-group">
+ <div class="field">
+ <%= f.text_field :title,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;"%><br>
+  </div>
+  </div>
+  
+   <div class="field">
+  <%= f.submit "Submit" ,class:"btn btn-primary", style:"margin-left:43%;"%>
+  </div>
+
+<% end %>
+
+</div>
+</div>

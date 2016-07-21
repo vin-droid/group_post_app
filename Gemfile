@@ -11,6 +11,8 @@ gem 'cloudinary'
 gem 'will_paginate'
 gem 'rails_12factor'
 gem 'pg'
+gem 'bootstrap-sass'
+# gem 'sass-rails', '>= 3.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

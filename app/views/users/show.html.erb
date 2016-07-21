@@ -1,4 +1,4 @@
- Logged as : <i><%=current_user.f_name + current_user.l_name%> </i ><br>
+ Logged as : <i><%=current_user.full_name%> </i ><br>
 
  <br> 
 
@@ -8,12 +8,10 @@
         <%= link_to 'Delete Your Account' , user_path(@user) ,method: :delete %>
     <%end%>
   <pre>
-  Image: <%= image_tag @user.image.url  if @user.image?%>
-  Full Name: <%= @user.f_name %>
-  User Name: <%= @user.l_name %>
-  Email: <%= @user.email_id %>
+  Full Name: <%= @user.full_name %>
+  User Name: <%= @user.username %>
+  Email: <%= @user.email %>
   Age: <%= @user.age %>
   Sex: <%= @user.sex %>
   </pre>
-  <%= render 'users/friends'%>
   <%= link_to 'Back' , root_path %> | 

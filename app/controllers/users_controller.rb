@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
 
   before_action :self_action, only:[:show,:destroy ,:edit ,:update]
-  before_action :authenticate, only:[:show,:destroy ,:edit ,:update]
+  before_action :authorize, except:[:new,:create,:index]
+  def index
+   redirect_to new_user_path
+  end
   def new
     @user = User.new
   end
@@ -16,17 +19,20 @@ class UsersController < ApplicationController
   end
   def create
     @user = User.create(user_params)
-    if @user.save!
+    if @user.save
       session[:user_id] = @user.id
       session[:authentication_token] = @user.authentication_token
-      redirect_to '/login'
+      redirect_to @user, notice: 'User was successfully created.'
     else
-      redirect_to '/signup'
+      render :new 
     end
   end
   def update 
-    @user.update(user_params)
-    redirect_to root_path
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.' 
+    else
+      render :edit 
+    end
   end
 
   private

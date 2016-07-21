@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
 	before_action :find_group , only:[:destroy,:show]
-	before_action :find_params, only:[:create,:show]
+	before_action :find_params, only:[:create]
 	before_action :authorize
 
 	def create
@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 			UsersGroup.create! user_id: params[:group][:group_creator], group_id:  @group.id
 			redirect_to root_path
 		else
-			render 'new'
+			render :new
 		end
 	end
 
@@ -26,7 +26,8 @@ class GroupsController < ApplicationController
 		redirect_to root_path
 	end
 
-	def show	
+	def show
+	    redirect_to	group_posts_path(@group.id)
 	end
 
 	def index
