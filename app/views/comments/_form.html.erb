@@ -6,8 +6,23 @@
     <%= f.text_field :content ,class:"form-control"%>
   </div>
   </div>
-  
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<!-- All Comments on This post -->
+<% @comments.order(:created_at ).each do |comnt|%>
+				<div>
+					<h5><%= comnt.username%>
+					<%= @user.%></h5>
+
+					<%= comnt.content %>
+					<br>
+ <!-- if this is current user's comment ,user can modify comment -->
+					<%if (@current_user.id == comnt.user_id)%>
+							<%= link_to 'Edit' , edit_post_comment_path(@post ,comnt) %>
+							<%= link_to  'Delete Post' , post_comment_path(@post,comnt)  ,method: :delete,:notice=> 'Successfully deleted'%>
+					<%else%>
+					<%end%>
+				</div>
+			<%end%>

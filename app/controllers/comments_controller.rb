@@ -1,3 +1,4 @@
+
 class CommentsController < ApplicationController
 
 	before_action :b_action,only:[:new,:show ,:edit,:update,:destroy ,:create]

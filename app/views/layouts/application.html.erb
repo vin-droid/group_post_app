@@ -24,7 +24,7 @@
 					<% if @current_user %>
 					<li>
 						<div class="navbar-brand">
-							Signed In As : <i><%= link_to "#{@current_user.email}",user_path(@current_user)%></i>
+							Signed In As : <i><%= link_to "#{@current_user.username}",user_path(@current_user)%></i>
 						</div>
 					</li>
 					<li>
