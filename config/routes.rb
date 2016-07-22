@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 	post "login"    => 'session#create'
 	resources :groups  do 
 		member do 
+			get "remove_user/:user_id" => 'groups#remove_user', as: 'remove_user'
+ 			get "add_user/:user_id" => 'groups#add_user', as: 'add_user'
+			get 'group_details'
 		end
 		resources :posts do 
 			resources :comments do 

@@ -1,0 +1,29 @@
+
+<div class="panel panel-primary">
+ <div class="panel-heading">
+    <h1 class="panel-title"><h1><%= @group.name%> </h1></h1>
+  </div>
+
+<div class="panel-body">
+	<u><i>Participants : </i></u><br>
+<ul> 
+	<% @group.group_members_other_than(@current_user.id).each do |user|%>
+	<li><%= user.username%> 
+    <%if @current_user.is_group_creator_of @group %>
+	 <a href="/groups/<%= @group.id%>/remove_user/<%=user.id%>" class="btn btn-danger btn-xs">Remove</a> <%end%></li> 
+    <%end%>
+
+</ul>
+    <%if @current_user.is_group_creator_of @group %>
+
+	<u><i>Add Participants : </i></u><br>
+<ul>
+	<ul> 
+	<% @group.users_not_in_group.each do |user|%>
+	<li><%= user.username%> <a href="/groups/<%= @group.id%>/add_user/<%=user.id%>" class="btn btn-success btn-xs">Add</a></li> 
+    <%end%>
+    <%end%>
+</ul>
+
+</div>
+</div>

@@ -25,22 +25,22 @@
         <% end %>
 <div class="form-group">
  <div class="field">
- <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;"%><br>
+ <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;", required: true%><br>
   </div>
   </div>
   <%= %>
    <div class="field">
 
-  <%= f.submit "Submit" ,class:"btn btn-primary", style:"margin-left:43%;"%>
+  <%= f.submit "Submit", class:"btn btn-primary", style:"margin-left:43%;", id:"add_users"%>
   </div>
 
   You can add these users to your group 
   <div class="user_list">
-  	<%@users= User.where.not(id: current_user.id)%>
-	<%@users.each do |user|%>
-		<%= user.username%>
-		<%= check_box_tag  "user_ids[]", user.id.to_s, false %>
-	<% end %>
+    <%@users= User.where.not(id: current_user.id)%>
+  <%@users.each do |user|%>
+    <%= user.username%>
+    <%= check_box_tag  "user_ids[]", user.id.to_s, false ,class: "check_box"%>
+  <% end %>
 </div>
 <% end %>
 
@@ -64,15 +64,28 @@
     </div>
   </div>
 </div>
-
+-->
 <script type="text/javascript">
 $(document).ready(function() {
-    // '_button' is the Id of your submit button
-    $("#_add_users").click(function() {            
-      // $(this).closest("form").submit();
-      // $("#dialog").dialog("close");
-      alert("i m working!")
-    });
+    // // '_button' is the Id of your submit button
+    // $("#_add_users").click(function() {            
+    //   alert("please select aleast one user")  if user_ids.empty?
+    // });
+
+    $('#add_users').click(function(e){
+        e.preventDefault();
+         var val = [];
+        $('.check_box:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+        if (val.length<= 0)
+        {
+          alert("Please select atleast one user "); 
+        }
+      else { $("#new_group").submit();}
+      
+      });
+
 });
 </script>
- -->
+ 

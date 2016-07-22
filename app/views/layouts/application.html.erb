@@ -13,13 +13,12 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
 				</button>
-				<%= link_to "Group-Post-App", root_path, class: "navbar-brand" %>
+
+      <a class="navbar-brand" href="/">Group-Post-App</a>
+				
 			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 				<ul class="nav navbar-nav">
 					<% if @current_user %>
 					<li>
@@ -28,9 +27,11 @@
 						</div>
 					</li>
 					<li>
-						<%= link_to "Group Post",root_path%>
+
+                       <li class="active"><a href="/"> Home <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/groups/new"> New Group </a></li>
 					</li>
-					<li><%=link_to"New Group",new_group_path%></li>
+					<li><%=link_to"Profile",user_path(@current_user)%></li>
 					<% end %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -46,8 +47,9 @@
 									<%=a%> )</span>: New Group Request
 									<span class="caret"></span></button>
 									<ul class="dropdown-menu">
+										<%= p "No Request " if group_invitations.size == 0%>
 										<% group_invitations.each do |resqt|%>
-										<li> <%=link_to"#{resqt.group.name}: BY: #{resqt.user.username} "%>
+										<li> <%=link_to"#{resqt.group.name} "%>
 											<%=link_to"Accept",accept_invitation_path(resqt)%>
 											(<%=l resqt.created_at%>)
 										</li>

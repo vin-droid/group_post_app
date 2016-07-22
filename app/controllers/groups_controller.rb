@@ -1,12 +1,12 @@
 class GroupsController < ApplicationController
     # protect_from_forgery except: :index
-	before_action :find_group , only:[:destroy,:show]
+	before_action :find_group , only:[:destroy,:show, :remove_user, :add_user, :group_details]
 	before_action :find_params, only:[:create]
 	before_action :authorize
 	
 
 	def create
-		@group = @current_user.groups.create(find_params)
+		@group = @current_user.groups.create!(find_params)
 		users_ids = params[:user_ids]
 		if @group.save!
 			users_ids.each do |user_id|
@@ -36,6 +36,22 @@ class GroupsController < ApplicationController
 		group_ids =  UsersGroup.where(user_id: @current_user.id,status: "accepted").pluck(:group_id)
 		@groups = Group.where(id: group_ids)
 	end
+
+	def remove_user
+		@group.remove_user params[:user_id]
+		redirect_to group_details_group_path
+	end
+
+	def add_user
+		@group.invite_user params[:user_id]
+		redirect_to group_details_group_path
+	end
+
+	def group_details
+		@group_members      = @group.users
+		@users_not_in_group = User.where("id NOT IN (?)",@group_members.pluck(:id))
+	end
+
 
 	def update
 		@group.update(find_params)

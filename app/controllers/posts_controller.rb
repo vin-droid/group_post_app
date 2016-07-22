@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 	end
 	def index
 		@posts = @group.posts.includes(:comments)
+
 	end
 	def show
 	end
@@ -29,6 +30,8 @@ class PostsController < ApplicationController
 		@post.update(find_params)
 		redirect_to root_path
 	end
+
+
 
 	private 
 	def b_action

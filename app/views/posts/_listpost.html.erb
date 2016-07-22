@@ -1,51 +1,51 @@
 
 <% if @posts.present?%>
 <div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      <span class="badge" style="margin-left:40%;">
-        <h4>  <%= @posts.first.group.name%> </h4>
-        <h5>Posts --<%=link_to"Create New Post",  new_group_post_path%></h5></span>
-      </div>
-      <div class="panel-body">
-        <div class="well">
-          <% @posts.each do |post|%>
-          <h4  class="btn btn-default btn-lg btn-block"><span class="badge">
-            TITLE </span>:<%= post.title %></h4>
-            <%= post.content%>
-            <br><%=image_tag(post.image.url, height:"15%;", width:"15%;")%>
-            <br>created by: <%= post.user.username%>
-
-            <ul class="list-group">
-              <% if post.comments.present?%>
-              <% post.comments.each do |coment|%><li class="list-group-item">
-              <div style="word-break:break-all;"> <%= coment.content%>
-                <br>
-                <span class="badge">By:<%= coment.username%></span> 
-
-                
-<%= render 'comment'%>
-
-<pre>
-  <%=current_user.f_name%><%= current_user.l_name%>
-  <%= form_for :comment, :url=> post_comments_path(@post) do |f|%>
-        <%= f.text_area :desc %><br>
-        <%= f.submit "Submit" %>
-    <%end%> 
-</pre>
-
-
-<%= link_to 'Back' , root_path%>
-              </div></li>
-              <% end %>
-              <% end %>
-            </ul>
-            <% end%>
-            <% else %>
-            <h4>
-              No Post Available ..<%=link_to"Create New Post", new_group_post_path%>
-            </h4>
+       <div class="panel-heading">
+          <h3 class="panel-title">
+            <span class="badge" style="margin-left:40%;">
+              <h4>  <%= @posts.first.group.name%> </h4>
+              <h5>Posts --<%=link_to"Create New Post",  new_group_post_path%></h5></span>
+       </div>
+       <div class="panel-body">
+          <div class="well">
+             <ul class="list-group">
+            <% @posts.each do |post|%>
+              <li class="list-group-item" style="margin-top:20px">
+                <div class="panel-body">
+              <h2><u><%= post.title %></u></h2>
+              <%= post.content%>
+                  <br>
+              <%=image_tag(post.image.url, height:"15%;", width:"15%;")%>
+                  <br>
+              created by: <%= post.user.username%>
+            </div>
+              <ul class="list-group">
+                <% if post.comments.present?%>
+                      <% post.comments.each do |coment|%>
+                       <li class="list-group-item">
+                         <div style="word-break:break-all;">
+                          <%= coment.content%>
+                          <br>
+                          <span class="badge">Commented By:<%= coment.user.username%></span> 
+                          </div>
+                       </li>
+                      <%end%>
+                <%end%>
+            
+                  <%= @current_user.username%>
+                  <%= form_for :comment, :url=> group_post_comments_path(@group.id,post.id) do |f|%>
+                  <%= f.text_area :content %><br>
+                  <%= f.submit "Submit" %>
+                  <%end%> 
+              </ul>
+             </li>
+            <% end %>
+            </u>
           </div>
-        </div>
       </div>
-      <% end %>
+<% else %>
+<h4>
+  No Post Available ..<%=link_to"Create New Post", new_group_post_path%>
+</h4>
+<%end%>
