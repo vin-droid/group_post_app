@@ -10,7 +10,7 @@
 				<%= form_for :session, :url =>login_path  do |f| %>
 				<div class="form-group" style="width:285px;">
 					<div class="field">
-						Email: <%= f.email_field :email, class:"form-control", required:true%><br>
+						Username: <%= f.text_field :username, class:"form-control", required:true%><br>
 					</div>
 					<div class="field">
 						Password: <%= f.password_field :password, class:"form-control", required:true %><br>

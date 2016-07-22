@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
 			users_ids.each do |user_id|
 				UsersGroup.create! user_id: user_id, group_id: @group.id 
 			end 
-			UsersGroup.create! user_id: @current_user.id, group_id:  @group.id, status: "accepted"
+			UsersGroup.find_by(user_id: @current_user.id, group_id: @group.id).update_attribute(:status, "accepted")
 			redirect_to root_path
 		else
 			render :new
@@ -44,7 +44,7 @@ class GroupsController < ApplicationController
 
 	private
 	def find_params
-		params[:group][:group_creator] = @current_user.username
+		params[:group][:group_creator] = current_user.username
 		params.require(:group).permit(:name ,:body,:users_ids,:group_creator)
 	end
 end

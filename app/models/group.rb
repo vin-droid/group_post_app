@@ -1,7 +1,6 @@
 class Group < ApplicationRecord
-
-	has_many :users_groups, class_name: "UsersGroup", inverse_of: :group,dependent: :destroy
-	has_many :users, through: :users_group, class_name: "User",dependent: :destroy
+    has_many :users_groups, class_name: "UsersGroup", dependent: :destroy
+    has_many :users, through: :users_groups, dependent: :destroy
 	has_many :posts, dependent: :destroy, inverse_of: :group
 
 	def invite_user user

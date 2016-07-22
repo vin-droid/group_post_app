@@ -8,6 +8,21 @@
 
 
 <%= form_for @group , method: :post do |f|%>
+
+<% if @group.errors.any? %>
+        <div class="alert alert-danger fade in">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Warning!</strong> 
+          <div id="error_explanation">
+            <h2><%= pluralize(@group.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+              <% @group.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <% end %>
 <div class="form-group">
  <div class="field">
  <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;"%><br>
