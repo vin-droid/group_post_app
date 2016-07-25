@@ -10,16 +10,18 @@
        <div class="panel-body">
           <div class="well">
              <ul class="list-group">
+              <h2>All Posts</h2>
             <% @posts.each do |post|%>
               <li class="list-group-item" style="margin-top:20px">
                 <div class="panel-body">
-              <h2><u><%= post.title %></u></h2>
-              <%= post.content%>
+              <h2>Post title:  <u><%= post.title %></u></h2>
+              <i>Content</i>: <%= post.content%>
                   <br>
               <%=image_tag(post.image.url, height:"15%;", width:"15%;")%>
                   <br>
               created by: <%= post.user.username%>
             </div>
+            Comments:
               <ul class="list-group">
                 <% if post.comments.present?%>
                       <% post.comments.each do |coment|%>

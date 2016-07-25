@@ -22,14 +22,14 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       session[:authentication_token] = @user.authentication_token
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user, notice: 'User has been  successfully created.'
     else
       render :new 
     end
   end
   def update 
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.' 
+      redirect_to @user, notice: 'User has been successfully updated.' 
     else
       render :edit 
     end

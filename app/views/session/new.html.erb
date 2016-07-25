@@ -5,6 +5,12 @@
 		<h3 class="panel-title">User Login</h3>
 	</div>
 	<div class="panel-body">
+		<% flash.each do |key, value| %>
+                  <div class="alert alert-<%= key %>">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <%= value %>
+                   </div>
+            <% end %>
 		<div class="form-horizontal col-lg-8">
 			<fieldset>
 				<%= form_for :session, :url =>login_path  do |f| %>

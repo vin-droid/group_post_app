@@ -1,5 +1,5 @@
 class Group < ApplicationRecord
-    has_many :users_groups, class_name: "UsersGroup", dependent: :destroy
+    has_many :users_groups, class_name: "UsersGroup"
     has_many :users, through: :users_groups, dependent: :destroy
 	has_many :posts, dependent: :destroy, inverse_of: :group
 	has_many :accepted_users_groups, ->{where status: 'accepted'}, class_name: "UsersGroup"
