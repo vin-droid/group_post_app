@@ -8,7 +8,7 @@ class SessionController < ApplicationController
       session[:authentication_token] = user.authentication_token
       redirect_to '/'
     else
-        flash[:danger]="The username or password you entered is incorrect.?"
+        flash[:danger]="The username or password you entered is incorrect.? "
         redirect_to '/login'
     end
   end
