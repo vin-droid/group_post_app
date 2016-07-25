@@ -2,7 +2,7 @@ class User < ApplicationRecord
 	has_secure_password
 	has_many :users_groups, class_name: "UsersGroup"
 	has_many :groups, through: :users_groups, dependent: :destroy
-	has_many :group_invitations, -> { where status: 'pending'}, class_name: 'UsersGroup',inverse_of: :user, dependent: :destroy
+	has_many :group_invitations, -> { where status: 'pending'}, class_name: 'UsersGroup',inverse_of: :user
 	has_many :posts, dependent: :destroy, inverse_of: :user
 	has_many :comments, dependent: :destroy, inverse_of: :user
 	before_destroy :transfer_groups_ownership, prepend: true
@@ -22,16 +22,10 @@ class User < ApplicationRecord
 
 def transfer_groups_ownership
 		@owned_groups = self.owned_groups 
-		p "==============kjdgfjhgdjfjfghkjdghkjhkjgh======="
-		if @owned_groups.present?
+		if @owned_groups.present? 
 			@owned_groups.each do |group|
-				group.update_attribute(:group_creator , group.second_owner.username)
+				group.update_attribute(:group_creator , group.second_owner.username) if group.second_owner.present?
 			end
 		end
 	end
-
-
-
-	private
-
 end

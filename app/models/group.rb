@@ -11,7 +11,8 @@ class Group < ApplicationRecord
          UsersGroup.where(group_id: self.id, user_id: user).destroy_all   #if current_user.is_group_creator_of self 
 	end
 	def second_owner
-		User.find(self.users_groups.first(2).last.user_id)
+		second_owner_id = self.users_groups.first(2).last
+		User.find(second_owner_id.user_id) if second_owner_id.present? 
 	end
 	def group_members_other_than admin
 		user_ids = self.accepted_users_groups.pluck(:user_id) - Array(admin)

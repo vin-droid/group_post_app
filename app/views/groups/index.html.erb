@@ -6,6 +6,12 @@
 		<h3 class="panel-title">Your Groups</h3>
 	</div>
 	<div class="panel-body">
+				<% flash.each do |key, value| %>
+                  <div class="alert alert-<%= key %>">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <%= value %>
+                   </div>
+            <% end %>
 		<ul class="list-group">
 			<% @groups.each do |group|%>
 			<li class="list-group-item">

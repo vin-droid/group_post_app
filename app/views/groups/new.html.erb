@@ -6,10 +6,14 @@
 
 <div class="panel-body">
 
+    <% flash.each do |key, value| %>
+                  <div class="alert alert-<%= key %>">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <%= value %>
+                   </div>
+            <% end %>
 
-<%= form_for @group , method: :post do |f|%>
-
-<% if @group.errors.any? %>
+            <% if @group.errors.any? %>
         <div class="alert alert-danger fade in">
           <a href="#" class="close" data-dismiss="alert">&times;</a>
           <strong>Warning!</strong> 
@@ -23,9 +27,13 @@
           </div>
         </div>
         <% end %>
+<%= form_for @group , method: :post do |f|%>
+
+
+
 <div class="form-group">
  <div class="field">
- <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;", required: true%><br>
+ <%= f.text_field :name,class:"form-control", placeholder:"Group Name..!",style:"width:35%; margin-left:30%;", required: true,id:"group_name"%><br>
   </div>
   </div>
   <%= %>
@@ -36,7 +44,6 @@
 
   You can add these users to your group 
   <div class="user_list">
-    <%@users= User.where.not(id: current_user.id)%>
   <%@users.each do |user|%>
     <%= user.username%>
     <%= check_box_tag  "user_ids[]", user.id.to_s, false ,class: "check_box"%>

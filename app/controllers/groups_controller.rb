@@ -21,6 +21,12 @@ class GroupsController < ApplicationController
 
 	def new
 		@group = @current_user.groups.new
+		@users = User.where.not(id: @current_user.id)
+        if !@users.present?
+        	 flash[:danger]="There are no other users to create a group!"
+        	 redirect_to '/'
+        end
+
 	end
 
 	def destroy
